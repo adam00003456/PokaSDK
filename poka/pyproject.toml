@@ -1,0 +1,61 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "poka"
+dynamic = ["version"]
+description = 'SDK to interact with Pokemon API calls'
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "adam-lokicode", email = "132405074+adam-lokicode@users.noreply.github.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = []
+
+[project.urls]
+Documentation = "https://github.com/adam-lokicode/poka#readme"
+Issues = "https://github.com/adam-lokicode/poka/issues"
+Source = "https://github.com/adam-lokicode/poka"
+
+[tool.hatch.version]
+path = "src/poka/__about__.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/poka tests}"
+
+[tool.coverage.run]
+source_pkgs = ["poka", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/poka/__about__.py",
+]
+
+[tool.coverage.paths]
+poka = ["src/poka", "*/poka/src/poka"]
+tests = ["tests", "*/poka/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
