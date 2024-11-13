@@ -24,7 +24,12 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = []
+
+dependencies = [
+  "requests",
+  "responses",
+  "pydantic",
+]
 
 [project.urls]
 Documentation = "https://github.com/adam-lokicode/poka#readme"
