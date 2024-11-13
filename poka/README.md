@@ -3,7 +3,9 @@
 [![PyPI - Version](https://img.shields.io/pypi/v/poka.svg)](https://pypi.org/project/poka)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/poka.svg)](https://pypi.org/project/poka)
 
------
+Python SDK for the Pokemon API
+
+---
 
 ## Table of Contents
 
