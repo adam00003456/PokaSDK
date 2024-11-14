@@ -18,6 +18,12 @@ Python SDK for the Pokemon API
 pip install poka
 ```
 
+## Testing
+
+```console
+hatch run test -- -s
+```
+
 ## License
 
 `poka` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.

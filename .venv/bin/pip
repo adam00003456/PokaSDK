@@ -1,4 +1,4 @@
-#!/Users/adamtoth/Documents/GitHub/rwa-creator/PokaSDK/.venv/bin/python
+#!/Users/adamtoth/Documents/GitHub/PokaSDK/.venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

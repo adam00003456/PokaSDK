@@ -1,5 +1,4 @@
 import random
-import time
 from src.poka.sdk import PokaSDK
 
 class PokemonGame:
@@ -8,7 +7,10 @@ class PokemonGame:
         print("Welcome to the Pokémon Terminal Game!")
 
     def choose_generation(self):
-        print("\nChoose a Pokémon Generation to explore (1-9): ")
+        generationNumber = self.sdk.poka_generation_general()
+        print("\nChoose a Pokémon Generation to explore (1-" + 
+              str(len(generationNumber)) + "): ")
+
         while True:
             try:
                 generation = input("Enter generation number: ")
@@ -22,17 +24,16 @@ class PokemonGame:
 
     def encounter_pokemon(self, generation):
         print("\nFetching Pokémon from Generation", generation, "...")
-        pokemon_list = self.sdk.poka_generation(generation)
+        pokemon_list = self.sdk.poka_generation_specific(generation)
         
         if not pokemon_list:
             print("No Pokémon found for this generation.")
             return None
 
         # Select a random Pokémon from the list
-        encountered_pokemon = random.choice(pokemon_list)
-        pokemon_name = encountered_pokemon["name"].capitalize()
-        print(f"\nA wild {pokemon_name} appeared!")
-        return pokemon_name
+        pokemonname = self.sdk.poka_random_pokemon_selector(generation)
+        print(f"A wild {pokemonname} appeared!")
+        return pokemonname
 
     def catch_pokemon(self, pokemon_name):
         # Simple random chance to catch

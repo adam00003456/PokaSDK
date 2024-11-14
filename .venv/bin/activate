@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/adamtoth/Documents/GitHub/rwa-creator/PokaSDK/.venv"
+VIRTUAL_ENV="/Users/adamtoth/Documents/GitHub/PokaSDK/.venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

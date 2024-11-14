@@ -14,6 +14,8 @@ class TestPokaSDKIntegration(unittest.TestCase):
         # Mock the URL for a specific generation with a paginated response
         generation_url = "https://pokeapi.co/api/v2/generation/1/"
         
+        #TEST Pokemon name as well as number here
+
         # Mock first page of results
         responses.add(
             responses.GET,
