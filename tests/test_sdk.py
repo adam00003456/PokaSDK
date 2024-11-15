@@ -1,73 +1,37 @@
 import unittest
-import responses
 from src.poka.sdk import PokaSDK
 
 class TestPokaSDKIntegration(unittest.TestCase):
-    def setUp(self):
-        # Set up the SDK instance
-        print("\nSetting up PokaSDK instance for testing.")
-        self.sdk = PokaSDK()
-
-    @responses.activate
-    def test_poka_generation(self):
-        print("Testing poka_generation with valid generation ID...")
-        # Mock the URL for a specific generation with a paginated response
-        generation_url = "https://pokeapi.co/api/v2/generation/1/"
+    
+    @classmethod
+    def setUpClass(cls):
+        cls.sdk = PokaSDK()
+    
+    def test_poka_generation_specific_with_id(self):
+        # Test calling the API with an ID
+        generation_id = 1  # Known valid generation ID
+        response = self.sdk.poka_generation_specific(generation_id)
         
-        #TEST Pokemon name as well as number here
+        self.assertIn("pokemon_species", response)
+        self.assertGreater(len(response["pokemon_species"]), 0, "No Pokémon species data found.")
+        print(f"API response for generation ID {generation_id}:", response)
 
-        # Mock first page of results
-        responses.add(
-            responses.GET,
-            generation_url,
-            json={
-                "results": [{"name": "bulbasaur", "url": "https://pokeapi.co/api/v2/pokemon/1/"}],
-                "next": "https://pokeapi.co/api/v2/generation/1/?page=2",
-            },
-            status=200,
-        )
+    def test_poka_generation_specific_with_name(self):
+        # Test calling the API with a name
+        generation_name = "generation-i"  # Known valid generation name
+        response = self.sdk.poka_generation_specific(generation_name)
         
-        # Mock second page of results (last page with no `next`)
-        responses.add(
-            responses.GET,
-            "https://pokeapi.co/api/v2/generation/1/?page=2",
-            json={
-                "results": [{"name": "ivysaur", "url": "https://pokeapi.co/api/v2/pokemon/2/"}],
-                "next": None,
-            },
-            status=200,
-        )
+        self.assertIn("pokemon_species", response)
+        self.assertGreater(len(response["pokemon_species"]), 0, "No Pokémon species data found.")
+        print(f"API response for generation name '{generation_name}':", response)
 
-        # Call the SDK method
-        results = self.sdk.poka_generation("1")
-
-        # Output the results to confirm what was returned
-        print("Results retrieved:", results)
-
-        # Check that we received both items from the paginated response
-        self.assertEqual(len(results), 2)
-        self.assertEqual(results[0]["name"], "bulbasaur")
-        self.assertEqual(results[1]["name"], "ivysaur")
-
-    @responses.activate
-    def test_invalid_generation(self):
-        print("Testing poka_generation with invalid generation ID...")
-        # Mock an invalid generation URL
-        responses.add(
-            responses.GET,
-            "https://pokeapi.co/api/v2/generation/invalid_id/",
-            json={"detail": "Not found."},
-            status=404,
-        )
-
-        # Check that an exception is raised with the correct error message
-        with self.assertRaises(Exception) as context:
-            self.sdk.poka_generation("invalid_id")
+    def test_invalid_id_or_name(self):
+        # Test calling the API with an invalid ID/name
+        invalid_id_or_name = "unknown-generation"
+        response = self.sdk.poka_generation_specific(invalid_id_or_name)
         
-        # Output the exception message to confirm error handling
-        print("Exception message:", str(context.exception))
-        
-        self.assertIn("Invalid response status code", str(context.exception))
+        self.assertEqual(response, {}, "Expected empty dictionary for invalid generation.")
+        print(f"API response for invalid ID/name '{invalid_id_or_name}':", response)
 
 if __name__ == "__main__":
     unittest.main()
