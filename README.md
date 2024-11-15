@@ -1,4 +1,7 @@
 
+![download](https://github.com/user-attachments/assets/12f058e1-9ac2-48db-ae41-6994d3b50342)
+
+
 # PokaSDK
 
 PokaSDK is a Python SDK for interacting with the [Pokémon API](https://pokeapi.co/docs/v2), offering methods to retrieve Pokémon data by generation, name, or ID. It includes `exampleGame`, a sample game to demonstrate the SDK’s features.
