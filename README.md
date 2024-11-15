@@ -78,6 +78,14 @@ Activate the `.venv` virtual environment to make and test changes without affect
 
 For more detailed output, use `-vv` with `hatch`.
 
+## Design Decisions
+
+Due to pagination with the APIs, I decided to allow for the user to be able to
+fetch all data from an API by default unless an offset parameter is provided.
+
+Also, in order to keep the number of SDK class methods to a mininum I used optional
+parameters.
+
 ## License
 
 This project is licensed under the MIT License. See LICENSE for details.
